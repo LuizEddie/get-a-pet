@@ -112,4 +112,30 @@ module.exports = class UserController{
         res.status(200).send(currentUser);
     }
 
+    static async getUserById(req, res){
+        const id = req.params.id;
+
+        const user = await User.findById(id).select('-password');
+
+        const errors = [];
+        //validations
+        if(!user){
+            errors.push('Usuário não encontrado!');
+        }
+
+        if(errors.length > 0){
+            res.status(422).json({message: errors});
+            return;
+        }
+
+        res.status(200).json({user});
+    }
+
+    static async editUser(req, res){
+        res.status(200).json({
+            message: 'Deu certo o update!'
+        });
+        return;
+    }
+
 }
