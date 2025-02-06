@@ -1,8 +1,7 @@
-const { MongooseError } = require('mongoose');
 const mongoose = require('../db/conn');
 const { Schema } = mongoose;
 
-const Pet = MongooseError.model(
+const Pet = mongoose.model(
     'Pet',
     new Schema(
         {
