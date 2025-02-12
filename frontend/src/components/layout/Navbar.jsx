@@ -20,6 +20,9 @@ export default function NavBar() {
                     <Link to="/">Adotar</Link>
                 </li>
                 <If condition={authenticated}>
+                    <li>
+                        <Link to="/user/profile">Perfil</Link>
+                    </li>
                     <li onClick={logout}>Sair</li>
                 </If>
                 <If condition={!authenticated}>

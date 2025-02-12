@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer';
 import Container from './components/layout/Container';
 import { UserProvider } from './context/UserContext';
 import Message from './components/layout/Message';
+import Profile from './components/pages/User/Profile';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path='/login' element={<Login></Login>}></Route>
             <Route path='/register' element={<Register></Register>}></Route>
+            <Route path='/user/profile' element={<Profile></Profile>}></Route>
             <Route path='/' element={<Home></Home>}></Route>
           </Routes>
         </Container>
