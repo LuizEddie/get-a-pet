@@ -80,14 +80,15 @@ module.exports = class UserController{
 
         if(!user){
             errors.push('Este usuário não existe!');
+        }else{
+            const checkPassword = await bcrypt.compare(password, user.password);
+
+            if(!checkPassword){
+                errors.push('Senha inválida');
+            }
         }
 
-        const checkPassword = await bcrypt.compare(password, user.password);
-
-        if(!checkPassword){
-            errors.push('Senha inválida');
-        }
-
+       
         if(errors.length > 0){
             res.status(422).json({message: errors});
             return;

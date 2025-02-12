@@ -8,7 +8,7 @@ const app = express();
 
 //Config json response;
 app.use(express.json());
-app.use(cors({ credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({ credentials: true, origin: 'http://localhost:12000'}));
 
 //public folder
 app.use(express.static("public"));
