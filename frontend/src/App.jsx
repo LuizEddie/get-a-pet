@@ -8,6 +8,8 @@ import Container from './components/layout/Container';
 import { UserProvider } from './context/UserContext';
 import Message from './components/layout/Message';
 import Profile from './components/pages/User/Profile';
+import MyPets from './components/pages/Pet/MyPets';
+import AddPet from './components/pages/Pet/AddPet';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
             <Route path='/login' element={<Login></Login>}></Route>
             <Route path='/register' element={<Register></Register>}></Route>
             <Route path='/user/profile' element={<Profile></Profile>}></Route>
+            <Route path='/pet/mypets' element={<MyPets></MyPets>}></Route>
+            <Route path='/pet/add' element={<AddPet></AddPet>}></Route>
             <Route path='/' element={<Home></Home>}></Route>
           </Routes>
         </Container>

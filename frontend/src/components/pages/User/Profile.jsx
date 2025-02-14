@@ -105,7 +105,7 @@ export default function Profile() {
                     ></Input>
                     <Input
                         text={"Confirmação de Senha"}
-                        type="passoword"
+                        type="password"
                         name="confirmpassword"
                         placeholder={"Digite a confirmação da nova senha"}
                         handleOnChange={handleChange}
