@@ -184,12 +184,8 @@ module.exports = class PetController {
             errors.push('O peso é obrigatório!');
         }
 
-        if(!color){
+        if(['Selecione uma opção...', '', undefined, null].includes(color)){
             errors.push('A cor é obrigatória!');
-        }
-
-        if(images.length === 0){
-            errors.push("A imagem é obrigatória!");
         }
 
         if(errors.length > 0){
@@ -198,7 +194,11 @@ module.exports = class PetController {
         }
 
         updatedData = {
-            name, age, weight, color, available, images: images.map(item => item.filename)
+            name, age, weight, color, available
+        }
+
+        if(images.length > 0){
+            updatedData['images'] = images.map(item => item.filename)
         }
 
         await Pet.findByIdAndUpdate(id, updatedData);

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import formStyles from './Form.module.css';
 import Input from './Input';
 import Select from './Select';
+import If from '../layout/If';
 
 export default function PetForm({ petData, btnText, handleSubmit }) {
 
@@ -9,20 +10,51 @@ export default function PetForm({ petData, btnText, handleSubmit }) {
     const [preview, setPreview] = useState([]);
     const colors = ["Branco", "Preto", "Cinza", "Caramelo", "Mesclado"];
 
-    function onFileChange() {
-
+    function onFileChange(e) {
+        setPreview(Array.from(e.target.files));
+        setPet(p => ({...p, images: [...e.target.files]}));
     }
 
-    function handleChange() {
-
+    function handleChange(e) {
+        setPet(p => ({...p, [e.target.name]: e.target.value}));
     }
 
-    function handleColor() {
+    function handleColor(e) {
+        setPet(p => ({...p, color: e.target.options[e.target.selectedIndex].text}));
+    }
 
+    function submit(e){
+        e.preventDefault();
+        // console.log(pet);
+        handleSubmit(pet);
     }
 
     return (
-        <form className={formStyles.form_container}>
+        <form className={formStyles.form_container} onSubmit={submit}>
+            <div className={formStyles.preview_pet_images}>
+            <If condition={preview.length > 0}>
+                {
+                    preview.map((item, idx)=>(
+                        <img
+                            src={URL.createObjectURL(item)}
+                            alt={pet.name}
+                            key={`${pet.name}_${idx}`}
+                        ></img>
+                    ))
+                }
+            </If>
+            <If condition={preview.length === 0 && pet.images?.length > 0}>
+                {
+                    pet?.images?.map((item, idx)=>(
+                        <img
+                            src={`${import.meta.env.VITE_APP_API}images/pets/${item}`}
+                            alt={pet.name}
+                            key={`${pet.name}_${idx}`}
+                        ></img>                    
+                    ))                
+                }
+            </If>
+            </div>
             <Input
                 text='Imagens do Pet'
                 type={'file'}
