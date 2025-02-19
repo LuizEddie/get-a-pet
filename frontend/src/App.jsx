@@ -12,6 +12,7 @@ import MyPets from './components/pages/Pet/MyPets';
 import AddPet from './components/pages/Pet/AddPet';
 import EditPet from './components/pages/Pet/EditPet';
 import PetDetails from './components/pages/Pet/PetDetails';
+import MyAdoptions from './components/pages/Pet/MyAdoptions';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path='/register' element={<Register></Register>}></Route>
             <Route path='/user/profile' element={<Profile></Profile>}></Route>
             <Route path='/pet/mypets' element={<MyPets></MyPets>}></Route>
+            <Route path='/pet/myadoptions' element={<MyAdoptions></MyAdoptions>}></Route>
             <Route path='/pet/add' element={<AddPet></AddPet>}></Route>
             <Route path='/pet/edit/:id' element={<EditPet></EditPet>}></Route>
             <Route path='/pet/:id' element={<PetDetails></PetDetails>}></Route>

@@ -88,3 +88,12 @@
     color: transparent;
     background-color: var(--green);
 }
+
+/* my adoptions */
+.contacts {
+    margin-left: 2em;
+}
+
+.contacts p{
+    margin-bottom: .5em;
+}

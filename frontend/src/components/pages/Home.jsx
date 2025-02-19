@@ -24,7 +24,7 @@ export default function Home(){
             <div className={styles.pet_container}>
                 <If condition={pets.length > 0}>
                     {pets.map(item => (
-                        <div className={styles.pet_card}>
+                        <div className={styles.pet_card} key={item._id}>
                             <div style={{backgroundImage: `url(${import.meta.env.VITE_APP_API}/images/pets/${item.images[0]})`}} className={styles.pet_card_image}>
 
                             </div>

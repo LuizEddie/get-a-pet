@@ -11,6 +11,26 @@ export default function PetDetails(){
     const {setFlashMessage} = useFlashMessage();
     const [token] = useState(localStorage.getItem('token') || '');
 
+    async function schedule(){
+
+        let msgType = 'success';
+        let msg = '';
+        const dataReturn = await api.patch(`pets/schedule/${pet._id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`
+            }
+        })
+        .then(resp => {
+            msg = resp.data.message;
+        }).catch(e => {
+            msgType = 'error';
+            msg = e.response.data.message.join(' | ')
+        });
+
+        setFlashMessage(msg, msgType);
+
+    }
+
     useEffect(()=>{
         api.get(`pets/${id}`).then((response) => {
             setPet(response.data.pet);
@@ -42,7 +62,7 @@ export default function PetDetails(){
                         <p>Você precisa <Link to='/register'>criar uma conta</Link> ou <Link to='/login'>estar logado</Link> para solicitar uma visita</p>
                     </If>
                     <If condition={token}>
-                        <button>Solicitar uma visita</button>
+                        <button onClick={(()=>schedule())}>Solicitar uma visita</button>
                     </If>
                 </section>
             </If>

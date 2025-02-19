@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import If from "../../layout/If";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useFlashMessage from '../../../hooks/useFlashMessage';
 import api from '../../../utils/api';
 import RoundedImage from "../../layout/RoundedImage";
@@ -12,6 +12,7 @@ export default function MyPets() {
     const [pets, setPets] = useState([]);
     const [token] = useState(localStorage.getItem('token') || '');
     const { setFlashMessage } = useFlashMessage();
+    const navigate = useNavigate();
 
     async function removePet(id){
         let msgType = 'success';
@@ -24,6 +25,24 @@ export default function MyPets() {
             const updatedPets = pets.filter(pet => pet._id !== id);
             setPets(updatedPets); 
             msg = response.data.message;
+        }).catch(e => {
+            msgType = 'error';
+            msg = e.response.data.message.join(' | ');
+        });
+
+        setFlashMessage(msg, msgType);
+    }
+
+    async function concludeAdoption(id){
+        let msgType = 'success';
+        let msg = '';
+
+        const dataReturn = await api.patch(`/pets/conclude/${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`
+            }
+        }).then((resp) => {
+            msg = resp.data.message;
         }).catch(e => {
             msgType = 'error';
             msg = e.response.data.message.join(' | ');
@@ -62,8 +81,8 @@ export default function MyPets() {
                                 <span className="bold">{item.name}</span>
                                 <div className={styles.actions}>
                                     <If condition={item.available}>
-                                        <If condition={pets.adopter}>
-                                            <button className={styles.conclude_btn}>Concluir Adoção</button>
+                                        <If condition={item.adopter}>
+                                            <button className={styles.conclude_btn} onClick={()=>concludeAdoption(item._id)}>Concluir Adoção</button>
                                         </If>
                                         <Link to={`/pet/edit/${item._id}`}>Editar</Link>
                                         <button onClick={()=>removePet(item._id)}>Excluir</button>

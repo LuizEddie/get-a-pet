@@ -61,7 +61,6 @@ export default function useAuth(){
         let type = 'success';
 
         try{
-            console.log(user);
             const data = await api.post('/users/login', user).then((response)=>{
                 return response.data;
             });
